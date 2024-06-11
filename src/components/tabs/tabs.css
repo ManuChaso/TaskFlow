@@ -1,0 +1,65 @@
+.tabs-container{
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    width: 100%;
+    height: 30px;
+    background-color: rgb(197, 197, 197);
+}
+.tab, .tab-selected{
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 150px;
+    height: 25px;
+    background-color: rgb(102, 102, 102);
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+}
+.tab-selected{
+    background-color: rgb(73, 73, 73);
+}
+.tab .name, .tab-selected .name{
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 15px;
+    color: white;
+}
+
+.tab .animated-name, .tab-selected .animated-name{
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 15px;
+    color: white;
+    animation: scrollText 10s linear infinite;
+}
+
+.tab button, .tab-selected button{
+    position: absolute;
+    top: 50%;
+    right: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    transform: translate(0, -50%);
+    border: none;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+    transition: all 300ms;
+}
+
+.tab button:hover, .tab-selected button:hover{
+    background-color: red;
+}
+
+@keyframes scrollText {
+    0% {
+        transform: translateX(50%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}

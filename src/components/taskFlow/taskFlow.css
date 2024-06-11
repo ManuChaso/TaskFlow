@@ -1,0 +1,13 @@
+.taskFlow-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(219, 219, 219);
+}
+.app-container{
+    display: flex;
+}
+.work-container{
+    flex: 5;
+}

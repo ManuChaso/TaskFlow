@@ -1,0 +1,106 @@
+.projects-nav-container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    height: calc(100vh - 50px);
+    background-color: rgb(207, 207, 207);
+    transition: all 300ms;
+}
+
+.new-project{
+    margin: 10px;
+    position: absolute;
+    width: 100px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--main-color);
+    color: white;
+    cursor: pointer;
+}
+.new-project:hover{
+    filter: brightness(0.95);
+}
+
+.projects-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    width: 90%;
+    height: 100%;
+    margin-top: 50px;
+    padding: 5%;
+    overflow: scroll;
+}
+
+.project{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 10px);
+    height: 25px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(190, 190, 190);
+    user-select: none;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.project-selected{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 10px);
+    height: 25px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgb(155, 155, 155);
+    user-select: none;
+    cursor: pointer;
+}
+
+.project h3, .project-selected h3{
+    font-size: 15px;
+    font-weight: normal;
+}
+
+.delete-project{
+    border: none;
+    background-color: transparent;
+    color: red;
+    cursor: pointer;
+}
+
+.delete-project:hover{
+    transform: scale(1.2);
+}
+
+@media (250px <= width <= 1000px){
+    .projects-nav-hidden{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
+        height: 100vh;
+        padding: 10px;
+        background-color: rgb(207, 207, 207);
+        transform: translate(-100%, 0);
+        transition: all 300ms;
+    }
+    .projects-nav-container{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
+        height: 100vh;
+        padding: 10px;
+        background-color: rgb(207, 207, 207);
+        transition: all 300ms;
+    }
+}
