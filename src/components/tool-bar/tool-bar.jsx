@@ -9,7 +9,6 @@ function ToolBar({projectData, socket}) {
 
   useEffect(() => {
     setProject(projectData);
-    console.log(projectData)
   }, [projectData])
 
   const addMember = () => {

@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
+import {DndProvider, useDrag, useDrop} from 'react-dnd';
 import './work-space.css'
 
 import Card from '../card/card';
@@ -42,6 +43,15 @@ function WorkSpace({tab}) {
         socket.send(JSON.stringify({action: 'createCard', card: cardInfo}));
     }
 
+    const moveCard = (dragIndex, hoverIndex) => {
+        const updateCards = [...project.cards];
+        const [draggedCard] = updateCards.splice(dragIndex, 1);
+        updateCards.splice(hoverIndex, 0, draggedCard);
+        setProject((prevProject) => ({...prevProject, cards: updateCards}));
+
+        socket.send(JSON.stringify({action: 'reorderCards', cards: updateCards, projectId: project._id}));
+    }
+
   return (
     <div className='work-space'>
         <ToolBar projectData={project} socket={socket}/>
@@ -49,7 +59,7 @@ function WorkSpace({tab}) {
 
         <div className='cards-container'>
             {project.cards.map((card, index) => 
-                <Card key={index} card={card} socket={socket}/>
+                <Card index={index} key={index} cardInfo={card} socket={socket} moveCard={moveCard}/>
             )}
             <div className='create-card'>
                 <button onClick={createCard} className='add-card'>+</button>

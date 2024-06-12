@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
+import {DndProvider} from 'react-dnd';
+import {HTML5Backend} from 'react-dnd-html5-backend'
 import './dashboard.css'
 
 import ProjectForm from '../project-form/project-form'
@@ -8,7 +10,10 @@ function Dashboard({tab, updateTab}) {
 
   return (
     <div className='dashboard-container'>
-        {tab.new ? <ProjectForm updateTab={updateTab} tab={tab}/> : <WorkSpace tab={tab}/>}
+        {tab.new ? <ProjectForm updateTab={updateTab} tab={tab}/> : 
+        <DndProvider backend={HTML5Backend}>
+          <WorkSpace tab={tab}/>
+        </DndProvider>}
     </div>
   )
 }
