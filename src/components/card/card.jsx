@@ -103,6 +103,15 @@ function Card({cardInfo, socket, index, moveCard}) {
     }
   });
 
+  const [, dropTask] = useDrop({
+    accept: 'TASK',
+    hover: (item) => {
+      if (card.tasks.length === 0) {
+        moveTask(item.index, 0, item.cardId, card._id, item.taskId);
+      }
+    },
+  });
+
   return (
     <div ref={(node) => drag(drop(node))} className='card' onContextMenu={(e) =>
       contextMenu({
@@ -125,7 +134,7 @@ function Card({cardInfo, socket, index, moveCard}) {
         :
         <h3 className='card-title' onClick={() => setEditing(true)} style={{background: backgroundColor, color: textColor}}>{cardInfo.name}</h3>
       }
-        <ul className='task-container'>
+        <ul className='task-container' ref={dropTask}>
           {card?.tasks.map((task, index) => 
             <Task key={index} task={task} socket={socket} cardId={cardInfo._id} index={index} moveTask={moveTask}/>
           )}
@@ -191,14 +200,13 @@ function Task({task, index, socket, cardId, moveTask}){
   });
 
   const [, drop] = useDrop({
-    accept: 'TASK',
+    accept: ['TASK', 'CARD'],
     hover: (draggedItem) => {
       console.log('Task id', task._id)
-      if (draggedItem.index !== index) {
+      if (draggedItem.index !== index || draggedItem.cardId !== cardId) {
         moveTask(draggedItem.index, index, draggedItem.cardId, cardId, draggedItem.taskId);
         draggedItem.index = index;
         draggedItem.cardId = cardId;
-        draggedItem.taskId = task._id
       }
     },
   });

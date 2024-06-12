@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import './header.css'
 
 import Logo from '../../assets/images/taskFlow-logo.png'
+import notification from '../../utils/notification';
 
 function Header() {
     const [user, setUser] = useState({userName: ''});
@@ -43,32 +44,44 @@ function Header() {
     }, []);
 
     const logout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user_id');
-        window.location.pathname = '/'
-    }    
-
-    const deleteAccount = () => {
-        const url = import.meta.env.VITE_API_URL;
-        const API_KEY = import.meta.env.VITE_API_KEY;
-        const token = localStorage.getItem('token');
-
-        fetch(`${url}delete-account`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'API_KEY': `${encodeURIComponent(API_KEY)}`,
-                'authorization': `${token}`
-            }
-        })
-        .then(response => response.json())
-        .then(res => {
-            if(res.success){
+        notification('Log out?', true).then(accept => {
+            if(accept){
                 localStorage.removeItem('token');
                 localStorage.removeItem('user_id');
                 window.location.pathname = '/'
             }
         })
+    }    
+
+    const deleteAccount = async () => {
+        try{
+            const accept = await notification('Delete account?', true);
+
+            if(accept){
+                const url = import.meta.env.VITE_API_URL;
+                const API_KEY = import.meta.env.VITE_API_KEY;
+                const token = localStorage.getItem('token');
+        
+                const response = await fetch(`${url}delete-account`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'API_KEY': `${encodeURIComponent(API_KEY)}`,
+                        'authorization': `${token}`
+                    }
+                })
+                
+                const res = await response.json();
+
+                if(res.success){
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user_id');
+                    window.location.pathname = '/'
+                }
+            }
+        } catch(err){
+            console.log('Error deleting account', err)
+        }
     }
 
   return (

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './register.css'
+import notification from '../../utils/notification'
 
 function Register({changeAuthScreen}) {
     const [email, setEmail] = useState('')
@@ -27,7 +28,11 @@ function Register({changeAuthScreen}) {
             });
 
             const res = await response.json();
-            console.log(res);
+            if(res.access){
+                notification('Gracias por registrarte, revisa tu email para verificar tu cuenta').then(() => {
+                    changeAuthScreen();
+                })
+            }
         } catch(err){
             console.error('Error fetching')
         }

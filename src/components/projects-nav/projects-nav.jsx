@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './projects-nav.css'
 import contextMenu from '../../utils/context-menu';
+import notification from '../../utils/notification';
 
 function ProjectsNav({addTab, selectTab, deleteTab, tabs, selected}) {
   const [projects, setProjects]= useState([]);
@@ -26,27 +27,32 @@ function ProjectsNav({addTab, selectTab, deleteTab, tabs, selected}) {
 
   const deleteProject = async (project) => {
     try{
-      const url = import.meta.env.VITE_API_URL;
-      const API_KEY = import.meta.env.VITE_API_KEY;
-      const token = localStorage.getItem('token');
 
-      const response = await fetch(`${url}delete-project`, {
-        method: 'POST',
-        headers:{
-          'Content-Type': 'application/json',
-          'API_KEY': `${encodeURIComponent(API_KEY)}`,
-          'authorization': `${token}`
-        },
-        body: JSON.stringify({projectId: project._id})
-      });
+      const accept = await notification('Delete project?', true);
 
-      const res = await response.json();
-
-      if(res.success){
-        console.log(res);
-        setProjects(projects.filter(p => p._id != project._id));
-        deleteTab(project._id)
-        
+      if(accept){
+        const url = import.meta.env.VITE_API_URL;
+        const API_KEY = import.meta.env.VITE_API_KEY;
+        const token = localStorage.getItem('token');
+  
+        const response = await fetch(`${url}delete-project`, {
+          method: 'POST',
+          headers:{
+            'Content-Type': 'application/json',
+            'API_KEY': `${encodeURIComponent(API_KEY)}`,
+            'authorization': `${token}`
+          },
+          body: JSON.stringify({projectId: project._id})
+        });
+  
+        const res = await response.json();
+  
+        if(res.success){
+          console.log(res);
+          setProjects(projects.filter(p => p._id != project._id));
+          deleteTab(project._id)
+          
+        }
       }
     } catch(err) {
       console.error('Error deleting project', err);
