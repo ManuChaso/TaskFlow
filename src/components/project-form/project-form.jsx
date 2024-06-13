@@ -36,8 +36,6 @@ function ProjectForm({updateTab, tab}) {
           new: false
         }
         updateTab(tab.id, newTab)
-      }else{
-        notification(res.message, false, 'error');
       }
 
     } catch(err) {

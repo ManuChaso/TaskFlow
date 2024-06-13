@@ -23,8 +23,6 @@ function ProjectsNav({addTab, selectTab, deleteTab, tabs, selected}) {
       .then(res => {
         if(res.success){
           setProjects(res.projects)
-        }else{
-          notification(res.message, false, 'error');
         }
       });
   }, [tabs]);

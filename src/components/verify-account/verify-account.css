@@ -1,0 +1,34 @@
+.verify-account{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--main-color);
+}
+
+.verifying{
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    width: 100%;
+}
+.verifying h3{
+    font-size: 25px;
+    color: white;
+}
+.verifying img{
+    width: 100px;
+}
+
+.verified{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.verified h3{
+    font-size: 25px;
+    color: white;
+}

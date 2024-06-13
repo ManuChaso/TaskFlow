@@ -31,6 +31,7 @@ function ToolBar({projectData, socket}) {
         <ul className='members'>
             {project.members.map((member, index) => 
                 <li 
+                title={member.name}
                 key={index}
                 onContextMenu={(e) => contextMenu({
                   e: e,
