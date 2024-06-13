@@ -77,19 +77,20 @@
     height: 20px;
     padding: 3px;
     border-radius: 15px;
-    background-color: blue;
+    background-color: var(--background-color);
 }
-.switch-on{
+.switch-on, .switch-off{
     width: 20px;
     height: 20px;
     border-radius: 15px;
-    background-color: green;
+    background-color: var(--main-color);
     align-self: flex-start;
+    transition: all 300ms;
 }
 .switch-off{
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: red;
     align-self: flex-end;
+}
+
+.switch-container img{
+    width: 20px;
 }

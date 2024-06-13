@@ -6,6 +6,9 @@ import { useTheme } from '../../state/theme';
 import Logo from '../../assets/images/taskFlow-logo.png'
 import notification from '../../utils/notification';
 
+import lightIcon from '../../assets/icons/sun.png';
+import darkIcon from '../../assets/icons/moon.png';
+
 function Header() {
     const [user, setUser] = useState({userName: ''});
     const [profileMenu, setProfileMenu] = useState(false);
@@ -89,13 +92,22 @@ function Header() {
     const ChangeTheme = () => {
         const [switchOn, setSwitchOn] = useState(true);
         const {theme, toggleTheme} = useTheme();
+
+        useEffect(() =>{
+            const localTheme = localStorage.getItem('theme');
+
+            if(localTheme){
+                setSwitchOn(localTheme == 'light' ? true : false)
+            }
+        })
+
         return(
             <div onClick={() => {
                 setSwitchOn(!switchOn);
                 toggleTheme();
-            }} className='switch-container'>
+            }} className={'switch-container'}>
                 <div className={switchOn ? 'switch-on' : 'switch-off'}>
-
+                    <img src={switchOn ? lightIcon : darkIcon} alt="" />
                 </div>
             </div>
         )
