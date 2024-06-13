@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import './header.css'
 
+import { useTheme } from '../../state/theme';
+
 import Logo from '../../assets/images/taskFlow-logo.png'
 import notification from '../../utils/notification';
 
@@ -84,6 +86,21 @@ function Header() {
         }
     }
 
+    const ChangeTheme = () => {
+        const [switchOn, setSwitchOn] = useState(true);
+        const {theme, toggleTheme} = useTheme();
+        return(
+            <div onClick={() => {
+                setSwitchOn(!switchOn);
+                toggleTheme();
+            }} className='switch-container'>
+                <div className={switchOn ? 'switch-on' : 'switch-off'}>
+
+                </div>
+            </div>
+        )
+    }
+
   return (
     <div className='header'>
         <img src={Logo} alt="" />
@@ -91,6 +108,8 @@ function Header() {
             <li>Github</li>
             <li>Linkedin</li>
         </ul>
+        
+        <ChangeTheme/>
 
         <div className='user-info'>
             <div onClick={() =>setProfileMenu(!profileMenu)} className='user'>

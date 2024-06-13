@@ -35,7 +35,7 @@ function Register({changeAuthScreen}) {
     
                 const res = await response.json();
                 if(res.access){
-                    notification('Gracias por registrarte, revisa tu email para verificar tu cuenta').then(() => {
+                    notification('Thank you for registering. Please check your email to verify your account.', false, 'done').then(() => {
                         changeAuthScreen();
                     })
                 }else{
@@ -48,9 +48,9 @@ function Register({changeAuthScreen}) {
 
                 if(!emailFormat.test(email)){
                     setEmailError(true);
-                    notification('Invalid email', false)
+                    notification('Invalid email', false, 'error')
                 }else{
-                    notification('Fields with * cannot be empty', false);
+                    notification('Fields with * cannot be empty', false, 'error');
                 }
 
             }

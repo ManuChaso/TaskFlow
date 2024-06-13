@@ -1,12 +1,13 @@
 
 
-export default function notification(text, interaction = false){
+export default function notification(text, interaction = false, state = 'info'){
     return new Promise((resolve, reject) => {
         
         document.querySelector('#notification') && document.querySelector('#notification').remove();
 
         const notificationContainer = document.createElement('div');
         notificationContainer.id = 'notification';
+        notificationContainer.className = state;
 
         const notificationText = document.createElement('h3');
         notificationText.textContent = text;

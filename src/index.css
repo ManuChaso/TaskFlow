@@ -5,7 +5,23 @@
 
 :root {
   font-family: 'dot';
-  --main-color: #2BB9ED
+  --main-color: #2BB9ED;
+  --background-color: #e8e8e8;
+  --background-dark-color: #bcbcbc;
+  --background-highlight-color: #d6d6d6;
+  --text-color: black;
+}
+
+[data-theme='dark']{
+  --main-color: #2BB9ED;
+  --background-color: #444444;
+  --background-dark-color: #262626;
+  --background-highlight-color: #333232;
+  --text-color: white;
+}
+
+body{
+  color: var(--text-color);
 }
 
 ::-webkit-scrollbar {

@@ -54,7 +54,7 @@
     gap: 10px;
     width: 195px;
     padding: 5px;
-    background-color: white;
+    background-color: var(--background-color);
     border-radius: 10px;
     box-shadow: 0px 0px 5px -3px black;
     z-index: 10;
@@ -67,5 +67,29 @@
     cursor: pointer;
 }
 .profile-menu li:hover {
-    background-color: rgb(221, 221, 221);
+    background-color: var(--background-highlight-color);
+}
+
+.switch-container{
+    display: flex;
+    flex-direction: column;
+    width: 40px;
+    height: 20px;
+    padding: 3px;
+    border-radius: 15px;
+    background-color: blue;
+}
+.switch-on{
+    width: 20px;
+    height: 20px;
+    border-radius: 15px;
+    background-color: green;
+    align-self: flex-start;
+}
+.switch-off{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: red;
+    align-self: flex-end;
 }

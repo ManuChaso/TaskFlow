@@ -55,7 +55,7 @@
     width: 90%;
     height: 50px;
     border-radius: 5px;
-    background-color: rgb(201, 201, 201);
+    background-color: var(--background-highlight-color);
     font-size: 15px;
     flex-shrink: 0;
 }
@@ -66,7 +66,9 @@
     height: 50px;
     border: none;
     border-radius: 5px;
-    background-color: rgba(201, 201, 201, 0.4);
+    background-color: var(--background-highlight-color);
+    color: var(--text-color);
+    opacity: 0.7;
     outline: none;
     font-size: 15px;
     flex-shrink: 0;
@@ -78,7 +80,8 @@
     height: 50px;
     border: none;
     border-radius: 5px;
-    background-color: rgb(201, 201, 201);
+    background-color: var(--background-highlight-color);
+    color: var(--text-color);
     font-size: 15px;
     flex-shrink: 0;
     outline: none;
@@ -95,7 +98,7 @@
     position: absolute;
     right: -101%;
     z-index: 5;
-    background-color: rgb(172, 172, 172);
+    background-color: var(--main-color);
     border-radius: 15px;
 }
 .edit-colors h3{
@@ -125,8 +128,8 @@
     height: 25px;
     border: none;
     border-radius: 5px;
-    background-color: var(--main-color);
-    color: white;
+    background-color: var(--background-color);
+    color: var(--text-color);
     cursor: pointer;
 }
 

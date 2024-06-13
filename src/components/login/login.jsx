@@ -40,16 +40,16 @@ function Login({changeAuthScreen, authorization}) {
                     localStorage.setItem('token', res.token);
                     authorization();
                 }else{
-                    notification(res.message, false);
+                    notification(res.message, false, 'error');
                 }
             }else{
                 setEmailError(email == '' ? true: false);
                 setPassError(password == '' ? true: false);
 
                 if(!emailFormat.test(email)){
-                    notification('Invalid email', false);
+                    notification('Invalid email', false, 'error');
                 }else{
-                    notification('Fields with * cannot be empty', false)
+                    notification('Fields with * cannot be empty', false, 'error')
                 }
             }
         } catch(err){

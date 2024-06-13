@@ -7,7 +7,7 @@
     position: absolute;
     width: 300px;
     padding: 5px;
-    background-color: rgb(219, 219, 219);
+    background-color: var(--background-color);
     border-radius: 5px;
     box-shadow: 0px 0px 8px -3px black;
     z-index: 100;
@@ -18,11 +18,11 @@
     width: calc(100% - 10px);
     height: 20px;
     padding: 5px;
-    background-color: rgb(219, 219, 219);
+    background-color: transparent;
     cursor: pointer;
 }
 .menu-option:hover{
-    filter: brightness(0.9);
+    background-color: var(--background-highlight-color);
 }
 
 /* notification styles */
@@ -40,12 +40,22 @@
     min-height: 60px;
     padding: 10px;
     border-radius: 5px;
-    background-color: white;
     box-shadow: 0px 0px 8px -3px black;
     animation: appear 0.5s ease-out forwards;
 }
 
+.info{
+    background-color: rgb(71, 141, 245);
+}
+.error{
+    background-color: rgb(218, 77, 77);
+}
+.done{
+    background-color: rgb(91, 192, 91);
+}
+
 #notification h3{
+    color: white;
     font-size: 16px;
     font-weight: normal;
 }
