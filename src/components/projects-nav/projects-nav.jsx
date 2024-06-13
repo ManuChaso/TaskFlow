@@ -21,7 +21,11 @@ function ProjectsNav({addTab, selectTab, deleteTab, tabs, selected}) {
     })
       .then(response => response.json())
       .then(res => {
-        setProjects(res.projects)
+        if(res.success){
+          setProjects(res.projects)
+        }else{
+          notification(res.message, false, 'error');
+        }
       });
   }, [tabs]);
 

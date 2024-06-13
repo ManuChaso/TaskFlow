@@ -90,24 +90,21 @@ function Header() {
     }
 
     const ChangeTheme = () => {
-        const [switchOn, setSwitchOn] = useState(true);
         const {theme, toggleTheme} = useTheme();
+        const [switchOn, setSwitchOn] = useState(theme);
 
         useEffect(() =>{
-            const localTheme = localStorage.getItem('theme');
-
-            if(localTheme){
-                setSwitchOn(localTheme == 'light' ? true : false)
-            }
-        })
+            setSwitchOn(theme)
+        }, [theme])
 
         return(
             <div onClick={() => {
-                setSwitchOn(!switchOn);
+                const newTheme = switchOn == 'light' ? 'dark' : 'light';
+                setSwitchOn(newTheme);
                 toggleTheme();
-            }} className={'switch-container'}>
-                <div className={switchOn ? 'switch-on' : 'switch-off'}>
-                    <img src={switchOn ? lightIcon : darkIcon} alt="" />
+            }} className='switch-container'>
+                <div className={switchOn === 'light' ? 'switch-on' : 'switch-off'}>
+                    <img src={switchOn === 'light' ? lightIcon : darkIcon} alt="" />
                 </div>
             </div>
         )

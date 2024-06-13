@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './project-form.css'
+import notification from '../../utils/notification'
 
 function ProjectForm({updateTab, tab}) {
   const [projectName, setProjectName]= useState('')
@@ -36,7 +37,7 @@ function ProjectForm({updateTab, tab}) {
         }
         updateTab(tab.id, newTab)
       }else{
-        console.log('mal', res)
+        notification(res.message, false, 'error');
       }
 
     } catch(err) {

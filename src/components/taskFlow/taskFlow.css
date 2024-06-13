@@ -11,3 +11,22 @@
 .work-container{
     flex: 5;
 }
+
+.start-project{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 90%;
+}
+
+.start-project img{
+    width: 40%;
+    filter: brightness(0.8);
+}
+.start-project h3{
+    font-size: 20px;
+    color: white;
+    filter: brightness(0.8);
+}

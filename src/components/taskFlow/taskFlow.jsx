@@ -6,6 +6,8 @@ import Tabs from '../tabs/tabs'
 import Dashboard from '../dashboard/dashboard'
 import Header from '../header/header'
 
+import Logo from '../../assets/images/taskFlow-logo.png';
+
 function TaskFlow() {
   const [tabs, setTabs] = useState([]);
   const [currentTab, setCurrentTab] = useState(0)
@@ -50,7 +52,11 @@ function TaskFlow() {
         <ProjectsNav addTab={addTab} selectTab={selectTab} deleteTab={deleteTab} tabs={tabs} selected={tabs.length > 0 && tabs[currentTab].id}/>
         <div className='work-container'>
           <Tabs tabs={tabs} selectTab={selectTab} deleteTab={deleteTab} currentTab={currentTab}/>
-          {tabs.length > 0 ? (<Dashboard updateTab={updateTab} tab={tabs[currentTab]}/>) : (<h1>Crea un proyecto</h1>)}
+          {tabs.length > 0 ? (<Dashboard updateTab={updateTab} tab={tabs[currentTab]}/>) : (
+            <div className='start-project'>
+              <img src={Logo} alt="Web logo" />
+              <h3>Create a project or select one</h3>
+            </div>)}
         </div>
       </div>
     </div>
