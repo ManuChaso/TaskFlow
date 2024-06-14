@@ -4,7 +4,8 @@ import contextMenu from '../../utils/context-menu';
 import notification from '../../utils/notification';
 
 function ProjectsNav({addTab, selectTab, deleteTab, tabs, selected}) {
-  const [projects, setProjects]= useState([]);
+  const [projects, setProjects] = useState([]);
+  const [showNavBar, setShowNavBar] = useState(false);
 
   useEffect(() => {
     const url = import.meta.env.VITE_API_URL;
@@ -62,7 +63,8 @@ function ProjectsNav({addTab, selectTab, deleteTab, tabs, selected}) {
   }
 
   return (
-    <div className='projects-nav-container'>
+    <div className={showNavBar ? 'projects-nav-container' : 'projects-nav-hidden'}>
+      <button onClick={() => setShowNavBar(!showNavBar)} className='show-navBar'>Open</button>
       <button className='new-project' onClick={() => {
         addTab('New project', (tabs.length > 0 ? tabs[tabs.length - 1].id + 1 : 0), true);
         selectTab(tabs.length)

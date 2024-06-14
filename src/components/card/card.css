@@ -141,3 +141,20 @@
     width: 90%;
     height: 100px;
 }
+
+@media (250px <= width <= 600px){
+    .edit-colors{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        right: 0%;
+        z-index: 5;
+        background-color: var(--main-color);
+        border-radius: 15px;
+    }
+}

@@ -2,3 +2,10 @@
     width: 100%;
     height: calc(100vh - 90px);
 }
+
+@media (250px <= width <= 600px){
+    .dashboard-container{
+        width: 100%;
+        height: calc(100vh - 150px);
+    }
+}

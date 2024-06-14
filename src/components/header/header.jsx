@@ -117,8 +117,6 @@ function Header() {
             <li>Github</li>
             <li>Linkedin</li>
         </ul>
-        
-        <ChangeTheme/>
 
         <div className='user-info'>
             <div onClick={() =>setProfileMenu(!profileMenu)} className='user'>
@@ -129,6 +127,7 @@ function Header() {
         {profileMenu && <ul ref={profileMenuRef} className='profile-menu'>
             <li onClick={logout}>Log Out</li>
             <li onClick={deleteAccount}>Delete account</li>
+            <ChangeTheme/>
         </ul>}
     </div>
   )
