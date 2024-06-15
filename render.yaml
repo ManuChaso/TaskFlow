@@ -2,4 +2,5 @@ services:
   - type: web
     name: TaskFlow
     env: static
-    staticPublishPath: build
+    buildCommand: 'npm install && npm run build'
+    staticPublishPath: dist
