@@ -10,7 +10,7 @@ function WorkSpace({tab}) {
     const [socket, setSocket]= useState(null);
 
     useEffect(() => {
-       const ws = new WebSocket('ws://localhost:3000');
+       const ws = new WebSocket('wss://taskflow-api-2plu.onrender.com');
        ws.onopen = () => {
         setSocket(ws);
         ws.send(JSON.stringify({action: 'startSession', projectId: tab.id}))
