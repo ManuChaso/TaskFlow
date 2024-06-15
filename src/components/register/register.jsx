@@ -6,6 +6,7 @@ function Register({changeAuthScreen}) {
     const [email, setEmail] = useState('')
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
+    const [confirmPass, setConfirmPass] = useState('');
     const [wrongPass, setWrongPass] = useState(false)
     const [emailError, setEmailError] = useState(false)
     const [userError, setUserError] = useState(false)
@@ -15,7 +16,7 @@ function Register({changeAuthScreen}) {
     const handleRegister = async () => {
         try{
             const emailFormat = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-            if(email != '' && userName != '' && password != '' && !wrongPass && emailFormat.test(email)){
+            if(email != '' && userName != '' && password != '' && confirmPass != '' && emailFormat.test(email)){
                 const url = import.meta.env.VITE_API_URL
                 const API_KEY = import.meta.env.VITE_API_KEY
                 const body = {
@@ -64,6 +65,7 @@ function Register({changeAuthScreen}) {
             setWrongPass(true)
         }else{
             setWrongPass(false)
+            setConfirmPass(e.target.value);
         }
     }
 
