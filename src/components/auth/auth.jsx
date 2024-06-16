@@ -16,7 +16,7 @@ function Auth({authorization}) {
   return (
     <div className='auth-container'>
       <img className='auth-logo' src={Logo} alt="" />
-      {login ? <Login authorization={authorization} changeAuthScreen={changeAuthScreen}/> : <Register changeAuthScreen={changeAuthScreen}/>}
+      {login ? <Login  setLogin={setLogin} authorization={authorization} changeAuthScreen={changeAuthScreen}/> : <Register changeAuthScreen={changeAuthScreen}/>}
     </div>
   )
 }

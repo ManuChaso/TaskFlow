@@ -67,11 +67,7 @@
 
 @media (250px <= width <= 600px){
     .tabs-container{
-        display: flex;
-        align-items: center;
-        width: 100%;
-        height: 50px;
-        background-color: var(--background-color);
+        display: none;
     }
     .tab, .tab-selected{
         position: relative;

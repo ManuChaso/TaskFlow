@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './login.css'
 import notification from '../../utils/notification'
 
-function Login({changeAuthScreen, authorization}) {
+function Login({changeAuthScreen, authorization, setLogin}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState(false);
@@ -10,7 +10,7 @@ function Login({changeAuthScreen, authorization}) {
 
     useEffect(() =>{
         const token = localStorage.getItem('token');
-        token && setLogged(true);
+        token && setLogin(true);
     }, [])
 
     const handleRegister = async () => {

@@ -123,15 +123,25 @@
     }
     .show-navBar{
         position: absolute;
-        top: 30%;
+        top: 50%;
         right: -30px;
-        display: block;
+        transform: translate(0, calc(-50% - 100px));
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 30px;
-        height: 50px;
+        height: 150px;
         border: none;
         border-top-right-radius: 15px;
         border-bottom-right-radius: 15px;
         background-color: var(--main-color);
         color: var(--text-color);
+    }
+    .open-button{
+        width: 30px;
+    }
+    .close-button{
+        width: 30px;
+        transform: rotate(180deg);
     }
 }

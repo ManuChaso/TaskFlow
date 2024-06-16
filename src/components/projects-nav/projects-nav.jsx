@@ -3,6 +3,9 @@ import './projects-nav.css'
 import contextMenu from '../../utils/context-menu';
 import notification from '../../utils/notification';
 
+import closeIcon from '../../assets/icons/close.png';
+
+
 function ProjectsNav({addTab, selectTab, deleteTab, tabs, selected}) {
   const [projects, setProjects] = useState([]);
   const [showNavBar, setShowNavBar] = useState(false);
@@ -64,7 +67,7 @@ function ProjectsNav({addTab, selectTab, deleteTab, tabs, selected}) {
 
   return (
     <div className={showNavBar ? 'projects-nav-container' : 'projects-nav-hidden'}>
-      <button onClick={() => setShowNavBar(!showNavBar)} className='show-navBar'>Open</button>
+      <button onClick={() => setShowNavBar(!showNavBar)} className='show-navBar'><img className={showNavBar ? 'open-button' : 'close-button'} src={closeIcon} alt="" /></button>
       <button className='new-project' onClick={() => {
         addTab('New project', (tabs.length > 0 ? tabs[tabs.length - 1].id + 1 : 0), true);
         selectTab(tabs.length)
