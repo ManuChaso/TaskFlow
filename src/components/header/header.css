@@ -19,10 +19,11 @@
     height: 100%;
     list-style: none;
 }
-.app-info li{
+.app-info li, .app-info a{
     font-size: 18px;
     color: white;
     cursor: pointer;
+    text-decoration: none;
 }
 .user-info{
     display: flex;

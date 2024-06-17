@@ -117,7 +117,7 @@ function Card({cardInfo, socket, index, moveCard}) {
       contextMenu({
         e: e,
         options: [
-          {text: 'Remove', function: () => deleteCard()},
+          {text: 'Remove card', function: () => deleteCard()},
           {text: 'Edit styles', function: () => setEditColors(true)}
           ]})}>
       {editing ? 

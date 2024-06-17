@@ -31,6 +31,11 @@ export default function contextMenu({e, options}){
 
     document.body.append(menu);
 
+    const menuWidth = menu.offsetWidth;
+    if (e.clientX + menuWidth > window.innerWidth) {
+        menu.style.left = `${e.clientX - menuWidth}px`;
+    }
+
     function handleClickOutside(event) {
         if (!menu.contains(event.target)) {
             menu.remove();

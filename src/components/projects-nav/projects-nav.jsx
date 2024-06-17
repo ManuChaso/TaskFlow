@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './projects-nav.css'
 import contextMenu from '../../utils/context-menu';
 import notification from '../../utils/notification';
@@ -9,6 +9,7 @@ import closeIcon from '../../assets/icons/close.png';
 function ProjectsNav({addTab, selectTab, deleteTab, tabs, selected}) {
   const [projects, setProjects] = useState([]);
   const [showNavBar, setShowNavBar] = useState(false);
+  const navBarRef = useRef(null);
 
   useEffect(() => {
     const url = import.meta.env.VITE_API_URL;
@@ -29,6 +30,18 @@ function ProjectsNav({addTab, selectTab, deleteTab, tabs, selected}) {
           setProjects(res.projects)
         }
       });
+
+      const handleClickOutside = (event) => {
+        if (navBarRef.current && !navBarRef.current.contains(event.target)) {
+            setShowNavBar(false);
+        }
+      };
+
+      document.addEventListener('mousedown', handleClickOutside);
+
+      return () => {
+          document.removeEventListener('mousedown', handleClickOutside);
+      };
   }, [tabs]);
 
   const deleteProject = async (project) => {
@@ -66,7 +79,7 @@ function ProjectsNav({addTab, selectTab, deleteTab, tabs, selected}) {
   }
 
   return (
-    <div className={showNavBar ? 'projects-nav-container' : 'projects-nav-hidden'}>
+    <div ref={navBarRef} className={showNavBar ? 'projects-nav-container' : 'projects-nav-hidden'}>
       <button onClick={() => setShowNavBar(!showNavBar)} className='show-navBar'><img className={showNavBar ? 'open-button' : 'close-button'} src={closeIcon} alt="" /></button>
       <button className='new-project' onClick={() => {
         addTab('New project', (tabs.length > 0 ? tabs[tabs.length - 1].id + 1 : 0), true);
@@ -108,7 +121,7 @@ function Project({project, addTab, selectTab, deleteProject, selected, tabs}){
         contextMenu({
           e: e,
           options: [
-            {text: 'Remove', function: () => deleteProject(project)}
+            {text: 'Remove project', function: () => deleteProject(project)}
           ]
         })
       }}

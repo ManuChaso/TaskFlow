@@ -114,8 +114,8 @@ function Header() {
     <div className='header'>
         <img src={Logo} alt="" />
         <ul className='app-info'>
-            <li>Github</li>
-            <li>Linkedin</li>
+            <li><a target='_blank' href="https://github.com/ManuChaso">Github</a></li>
+            <li><a target='_blank' href="https://www.linkedin.com/in/manu-chaso-martin/">Linkedin</a></li>
         </ul>
 
         <div className='user-info'>
