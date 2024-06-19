@@ -4,6 +4,8 @@ import contextMenu from '../../utils/context-menu';
 import notification from '../../utils/notification';
 
 import closeIcon from '../../assets/icons/close.png';
+import FetchApi from '../../utils/api-fetch';
+import exportProject from '../../utils/export-project';
 
 
 function ProjectsNav({addTab, selectTab, deleteTab, tabs, selected}) {
@@ -12,19 +14,7 @@ function ProjectsNav({addTab, selectTab, deleteTab, tabs, selected}) {
   const navBarRef = useRef(null);
 
   useEffect(() => {
-    const url = import.meta.env.VITE_API_URL;
-    const API_KEY = import.meta.env.VITE_API_KEY;
-    const token = localStorage.getItem('token');
-
-    fetch(`${url}get-projects`, {
-      method: 'GET',
-      headers:{
-        'Content-Type': 'application/json',
-        'API_KEY': `${encodeURIComponent(API_KEY)}`,
-        'authorization': `${token}`
-      }
-    })
-      .then(response => response.json())
+      FetchApi('GET', 'get-projects')
       .then(res => {
         if(res.success){
           setProjects(res.projects)
@@ -50,22 +40,10 @@ function ProjectsNav({addTab, selectTab, deleteTab, tabs, selected}) {
       const accept = await notification('Delete project?', true);
 
       if(accept){
-        const url = import.meta.env.VITE_API_URL;
-        const API_KEY = import.meta.env.VITE_API_KEY;
-        const token = localStorage.getItem('token');
-  
-        const response = await fetch(`${url}delete-project`, {
-          method: 'POST',
-          headers:{
-            'Content-Type': 'application/json',
-            'API_KEY': `${encodeURIComponent(API_KEY)}`,
-            'authorization': `${token}`
-          },
-          body: JSON.stringify({projectId: project._id})
-        });
-  
-        const res = await response.json();
-  
+        const res = await FetchApi('POST', 'delete-project', {
+          projectId: project._id
+        })
+
         if(res.success){
           console.log(res);
           setProjects(projects.filter(p => p._id != project._id));
@@ -121,7 +99,8 @@ function Project({project, addTab, selectTab, deleteProject, selected, tabs}){
         contextMenu({
           e: e,
           options: [
-            {text: 'Remove project', function: () => deleteProject(project)}
+            {text: 'Remove project', function: () => deleteProject(project)},
+            {text: 'Export project', function: () => exportProject(project._id)}
           ]
         })
       }}

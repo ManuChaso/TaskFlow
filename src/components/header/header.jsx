@@ -8,6 +8,7 @@ import notification from '../../utils/notification';
 
 import lightIcon from '../../assets/icons/sun.png';
 import darkIcon from '../../assets/icons/moon.png';
+import FetchApi from '../../utils/api-fetch';
 
 function Header() {
     const [user, setUser] = useState({userName: ''});
@@ -15,23 +16,10 @@ function Header() {
     const profileMenuRef = useRef(null);
 
     useEffect(() => {
-        const url = import.meta.env.VITE_API_URL;
-        const API_KEY = import.meta.env.VITE_API_KEY;
-        const token = localStorage.getItem('token');
-
-        fetch(`${url}get-profile?token=${token}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'API_KEY': `${encodeURIComponent(API_KEY)}`,
-                'authorization': `${token}`
-            }
-        })
-        .then(response => response.json())
+        FetchApi('GET', 'get-profile')
         .then(res => {
             if(res.success){
                 setUser(res.profile);
-                console.log(res)
             }
         });
 

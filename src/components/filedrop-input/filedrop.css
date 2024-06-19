@@ -1,0 +1,57 @@
+.file-drop{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 50%;
+    height: 30%;
+    background-color: var(--background-highlight-color);
+    border-radius: 15px;
+    transition: all 500ms;
+}
+.file-drop-active{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 50%;
+    height: 30%;
+    background-color: var(--background-highlight-color);
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px 5px var(--main-color);
+    transition: all 500ms;
+}
+.file-text{
+    color: var(--main-color);
+}
+.file-icon{
+    width: 70px;
+}
+
+@media (300px <= width <= 850px){
+    .file-drop{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+        width: 80%;
+        height: 30%;
+        background-color: var(--background-highlight-color);
+        border-radius: 15px;
+        transition: all 500ms;
+    }
+    .file-drop-active{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+        width: 80%;
+        height: 30%;
+        background-color: var(--background-highlight-color);
+        border-radius: 15px;
+        box-shadow: 0px 0px 10px 5px var(--main-color);
+        transition: all 500ms;
+    }
+}

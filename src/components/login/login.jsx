@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './login.css'
 import notification from '../../utils/notification'
+import FetchApi from '../../utils/api-fetch';
 
 function Login({changeAuthScreen, authorization, setLogin}) {
     const [email, setEmail] = useState('');
@@ -17,24 +18,13 @@ function Login({changeAuthScreen, authorization, setLogin}) {
         try{
             const emailFormat = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
             if(email != '' && password != '' && emailFormat.test(email)){
-                const url = import.meta.env.VITE_API_URL;
-                const API_KEY = import.meta.env.VITE_API_KEY;
 
                 const body = {
                     email,
                     password
                 }
 
-                const response = await fetch(`${url}login`, {
-                    method: 'POST',
-                    headers:{
-                        'Content-Type' : 'application/json',
-                        'API_KEY': `${encodeURIComponent(API_KEY)}`
-                    },
-                    body: JSON.stringify(body)
-                });
-
-                const res = await response.json();
+                const res = await FetchApi('POST', 'login', body);
                 console.log(res);
                 if(res.access){
                     localStorage.setItem('token', res.token);

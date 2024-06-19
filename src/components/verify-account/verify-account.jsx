@@ -4,6 +4,7 @@ import './verify-account.css'
 
 import loadingGif from '../../assets/icons/loading.gif';
 import notification from '../../utils/notification';
+import FetchApi from '../../utils/api-fetch';
 
 function VerifyAccount() {
     const [loading, setLoading]= useState(true);
@@ -25,21 +26,10 @@ function VerifyAccount() {
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
 
-        const url = import.meta.env.VITE_API_URL;
-        const API_KEY = import.meta.env.VITE_API_KEY;
-
-        fetch(`${url}verify-account`, {
-            method: 'POST',
-            headers:{
-                'Content-Type': 'application/json',
-                'API_KEY': `${encodeURIComponent(API_KEY)}`
-            },
-            body: JSON.stringify({
-                email: `${queryParams.get('email')}`,
-                password: `${encodeURIComponent(queryParams.get('pass'))}`
-            })
+        FetchApi('POST', 'verify-account', {
+            email: `${queryParams.get('email')}`,
+            password: `${encodeURIComponent(queryParams.get('pass'))}`
         })
-        .then(response => response.json())
         .then(async res => {
             if(res.access){
                 await asyncLocalStorage.setItem('token', res.token)

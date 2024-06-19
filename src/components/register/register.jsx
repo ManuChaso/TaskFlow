@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './register.css'
 import notification from '../../utils/notification'
+import FetchApi from '../../utils/api-fetch'
 
 function Register({changeAuthScreen}) {
     const [email, setEmail] = useState('')
@@ -17,24 +18,13 @@ function Register({changeAuthScreen}) {
         try{
             const emailFormat = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
             if(email != '' && userName != '' && password != '' && confirmPass != '' && emailFormat.test(email)){
-                const url = import.meta.env.VITE_API_URL
-                const API_KEY = import.meta.env.VITE_API_KEY
                 const body = {
                     email,
                     userName,
                     password
                 }
     
-                const response = await fetch(`${url}register`, {
-                    method: 'POST',
-                    headers:{
-                        'Content-Type' : 'application/json',
-                        'API_KEY': `${encodeURIComponent(API_KEY)}`
-                    },
-                    body: JSON.stringify(body)
-                });
-    
-                const res = await response.json();
+                const res = await FetchApi('POST', 'register', body);
                 if(res.access){
                     notification('Thank you for registering. Please check your email to verify your account.', false, 'done').then(() => {
                         changeAuthScreen();

@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Auth from './components/auth/auth'
 import TaskFlow from './components/taskFlow/taskFlow'
 import VerifyAccount from './components/verify-account/verify-account';
+import FetchApi from './utils/api-fetch';
 
 
 function App() {
@@ -14,29 +15,15 @@ function App() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    const url = import.meta.env.VITE_API_URL;
-    const API_KEY = import.meta.env.VITE_API_KEY;
-    
-    console.log(token)
 
     if(token){
-      fetch(`${url}get-profile`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'API_KEY': `${encodeURIComponent(API_KEY)}`,
-          'authorization': `${token}`
-        }
-      })
-      .then(response => response.json())
+    FetchApi('GET', 'get-profile')
       .then(res => {
         if(res.success){
-          console.log(res.profile);
           setAuth(true);
           localStorage.setItem('user_id', res.profile._id)
           setLoading(false)
         }else{
-          console.log(res);
           setLoading(false)
         }
       })
