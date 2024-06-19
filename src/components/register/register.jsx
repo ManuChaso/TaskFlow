@@ -2,19 +2,22 @@ import { useState, useEffect } from 'react'
 import './register.css'
 import notification from '../../utils/notification'
 import FetchApi from '../../utils/api-fetch'
+import Loading from '../loading/loadinbg'
 
 function Register({changeAuthScreen}) {
-    const [email, setEmail] = useState('')
-    const [userName, setUserName] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('');
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
     const [confirmPass, setConfirmPass] = useState('');
-    const [wrongPass, setWrongPass] = useState(false)
-    const [emailError, setEmailError] = useState(false)
-    const [userError, setUserError] = useState(false)
-    const [passError, setPassError] = useState(false)
+    const [wrongPass, setWrongPass] = useState(false);
+    const [emailError, setEmailError] = useState(false);
+    const [userError, setUserError] = useState(false);
+    const [passError, setPassError] = useState(false);
+    const [loading, setLoading] = useState(false);
 
 
     const handleRegister = async () => {
+        setLoading(true)
         try{
             const emailFormat = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
             if(email != '' && userName != '' && password != '' && confirmPass != '' && emailFormat.test(email)){
@@ -26,10 +29,12 @@ function Register({changeAuthScreen}) {
     
                 const res = await FetchApi('POST', 'register', body);
                 if(res.access){
+                    setLoading(false)
                     notification('Thank you for registering. Please check your email to verify your account.', false, 'done').then(() => {
                         changeAuthScreen();
                     })
                 }else{
+                    setLoading(false)
                     notification(res.message, false);
                 }
             }else{
@@ -38,9 +43,11 @@ function Register({changeAuthScreen}) {
                 setPassError(password == '' ? true : false);
 
                 if(!emailFormat.test(email)){
+                    setLoading(false)
                     setEmailError(true);
                     notification('Invalid email', false, 'error')
                 }else{
+                    setLoading(false)
                     notification('Fields with * cannot be empty', false, 'error');
                 }
 
@@ -73,6 +80,7 @@ function Register({changeAuthScreen}) {
             
             <button className='go-login' onClick={changeAuthScreen}>Or login</button>
         </div>
+        <Loading loading={loading}/>
     </div>
   )
 }

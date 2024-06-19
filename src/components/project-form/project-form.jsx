@@ -3,13 +3,16 @@ import './project-form.css'
 import notification from '../../utils/notification'
 import FetchApi from '../../utils/api-fetch'
 import FileDrop from '../filedrop-input/filedrop'
+import Loading from '../loading/loadinbg'
 
 function ProjectForm({updateTab, tab}) {
   const [projectName, setProjectName]= useState('')
   const [projectDescription, setProjectDescription]= useState('');
-  const [importedProject, setImportedProject] = useState();
+  const [importedProject, setImportedProject] = useState(null);
+  const [loading, setLoading]= useState(false);
 
   const handleProjectForm = async () => {
+    setLoading(true)
     try{ 
 
       if(projectName !== ''){
@@ -21,6 +24,7 @@ function ProjectForm({updateTab, tab}) {
         const res = await FetchApi('POST', 'create-project', projectData)
   
         if(res.success){
+          setLoading(false)
           const newTab = {
             name: res.project.name,
             id: res.project._id,
@@ -29,6 +33,7 @@ function ProjectForm({updateTab, tab}) {
           updateTab(tab.id, newTab)
         }
       }else{
+        setLoading(false)
         notification('Name cannot be empty', false, 'error')
       }
     } catch(err) {
@@ -41,20 +46,28 @@ function ProjectForm({updateTab, tab}) {
   }
 
   const importProject = async () => {
+    setLoading(true)
     try{
-      const res = await FetchApi('POST', 'import-project', importedProject);
+      if(importedProject) {
+          const res = await FetchApi('POST', 'import-project', importedProject);
 
-      if(res.success){
-        const newTab = {
-          name: res.project.name,
-          id: res.project._id,
-          new: false
+        if(res.success){
+          setLoading(false)
+          const newTab = {
+            name: res.project.name,
+            id: res.project._id,
+            new: false
+          }
+          updateTab(tab.id, newTab)
+          notification(res.message, false);
+        }else{
+          setLoading(false)
+          console.error('Error fetching', err);
+          notification(res.message, false);
         }
-        updateTab(tab.id, newTab)
-        notification(res.message, false);
       }else{
-        console.error('Error fetching', err);
-        notification(res.message, false);
+        setLoading(false)
+        notification("Importing nothing usually doesn't work...", false, 'error')
       }
     } catch(err) {
         console.error('Error fetching', err);
@@ -76,6 +89,8 @@ function ProjectForm({updateTab, tab}) {
         <FileDrop handleFileImport={handleFileImport}/>
 
         <button onClick={importProject}>Import</button>
+
+        <Loading loading={loading}/>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import './header.css'
 
-import { useTheme } from '../../state/theme';
+import { useTheme } from '../../providers/theme';
 
 import Logo from '../../assets/images/taskFlow-logo.png'
 import notification from '../../utils/notification';
