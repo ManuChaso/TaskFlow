@@ -7,6 +7,7 @@ import Auth from './components/auth/auth'
 import TaskFlow from './components/taskFlow/taskFlow'
 import VerifyAccount from './components/verify-account/verify-account';
 import FetchApi from './utils/api-fetch';
+import Loading from './components/loading/loadinbg';
 
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
 
   if(loading){
     return(
-      <h1>Loading...</h1>
+      <Loading loading={loading}/>
     )
   }
 
