@@ -10,32 +10,31 @@ function WorkSpace({tab}) {
     const [socket, setSocket]= useState(null);
 
     useEffect(() => {
-       const ws = new WebSocket('wss://taskflow-api-xkkg.onrender.com');
-       ws.onopen = () => {
-        setSocket(ws);
-        ws.send(JSON.stringify({action: 'startSession', projectId: tab.id}))
-       }
-
-       ws.onmessage = (event) =>{
-        const data = JSON.parse(event.data);
-        console.log(data.project)
-        if(data.project){
-            console.log('Llega')
-            setProject(data.project);
+        const WS_URL = import.meta.env.VITE_WS_URL
+        const ws = new WebSocket(WS_URL);
+        ws.onopen = () => {
+            setSocket(ws);
+            ws.send(JSON.stringify({action: 'startSession', projectId: tab.id}))
         }
-       }
 
-       return () =>{
-        if(socket)
-            socket.close()
-       }
+        ws.onmessage = (event) =>{
+            const data = JSON.parse(event.data);
+            if(data.project){
+                setProject(data.project);
+            }
+        }
+
+        return () =>{
+            if(socket)
+                socket.close()
+        }
 
     }, [tab]);
 
     const createCard = () => {
         const cardInfo = {
             name: 'New card',
-            tasks: [{name: 'First task'}],
+            tasks: [{name: 'First task', state: 'pending'}],
             background: '#3cdbd6',
             textColor: '#ffffff'
         }

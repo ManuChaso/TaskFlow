@@ -3,6 +3,7 @@ import {useDrag, useDrop} from 'react-dnd';
 import './card.css'
 import {HexColorPicker} from 'react-colorful'
 
+import Task from '../task/task';
 
 import contextMenu from '../../utils/context-menu';
 
@@ -43,7 +44,8 @@ function Card({cardInfo, socket, index, moveCard}) {
 
   const createTask = (e, event) => {
     const task = {
-      name: e.target.value
+      name: e.target.value,
+      state: 'pending'
     }
     console.log(e.target.value)
     if(event){
@@ -81,6 +83,7 @@ function Card({cardInfo, socket, index, moveCard}) {
       // Actualiza el estado del proyecto aquí si es necesario
     } else {
       socket.send(JSON.stringify({ action: 'transferTask', originCard: dragCardId, destinationCard: hoverCardId, taskId: taskId}));
+      console.log('Entra en otra card')
       // Lógica para mover tareas entre tarjetas diferentes si es necesario
     }
   };
@@ -107,6 +110,7 @@ function Card({cardInfo, socket, index, moveCard}) {
     accept: 'TASK',
     hover: (item) => {
       if (card.tasks.length === 0) {
+        console.log('Entra al if')
         moveTask(item.index, 0, item.cardId, card._id, item.taskId);
       }
     },
@@ -160,82 +164,6 @@ function Card({cardInfo, socket, index, moveCard}) {
   )
 }
 
-function Task({task, index, socket, cardId, moveTask}){
-  const [editing, setEditing] = useState(false);
-  const [text, setText] = useState('');
-  const inputRef = useRef(null)
-
-  useEffect(() => {
-    setText(task.name)
-  }, [task])
-
-  useEffect(() => {
-    if(editing){
-      inputRef.current.focus();
-    }
-  }, [editing])
-
-  const handleBlur = (e, event) => {
-    if(event){
-      if(e.key === 'Enter'){
-        setEditing(false);
-        socket.send(JSON.stringify({action: 'updateTask', taskName: text, taskId: task._id, cardId: cardId}));
-      }
-    }else{
-      setEditing(false);
-      socket.send(JSON.stringify({action: 'updateTask', taskName: text, taskId: task._id, cardId: cardId}));
-    }
-  }
-
-  const deleteTask = () => {
-    socket.send(JSON.stringify({action: 'deleteTask', cardId: cardId, taskId: task._id}));
-  }
-
-  const [{ isDragging }, drag] = useDrag({
-    type: 'TASK',
-    item: { index, cardId, taskId: task._id },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  });
-
-  const [, drop] = useDrop({
-    accept: ['TASK', 'CARD'],
-    hover: (draggedItem) => {
-      console.log('Task id', task._id)
-      if (draggedItem.index !== index || draggedItem.cardId !== cardId) {
-        moveTask(draggedItem.index, index, draggedItem.cardId, cardId, draggedItem.taskId);
-        draggedItem.index = index;
-        draggedItem.cardId = cardId;
-      }
-    },
-  });
-
-    return(
-        (!editing ? 
-        <li
-          ref={(node) => drag(drop(node))}
-          className='task'
-          onClick={() => setEditing(true)}
-          onContextMenu={(e) =>
-            contextMenu({
-              e: e,
-              options: [
-                {text: 'Remove task', function: () => deleteTask()},
-                ]})}>
-          {text}</li> : 
-        <input
-          className='update-task'
-          type='text'
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          ref={inputRef}
-          onBlur={(e) => handleBlur(e, false)}
-          onKeyDown={(e) => handleBlur(e, true)}
-          />
-      )
-    )
-}
 
 
 export default Card
