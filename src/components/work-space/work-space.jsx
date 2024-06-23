@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef} from 'react';
 import {DndProvider, useDrag, useDrop} from 'react-dnd';
 import './work-space.css'
 
@@ -12,6 +12,12 @@ function WorkSpace({tab}) {
     const [project, setProject] = useState({name: '', cards: [], members: []});
     const [socket, setSocket] = useState(null);
     const [showChat, setShowChat] = useState(false);
+    const [notification, setNotification] = useState(false);
+    const chatRef = useRef(showChat);
+
+    useEffect(() => {
+        chatRef.current = showChat
+    }, [showChat])
 
     useEffect(() => {
         const WS_URL = import.meta.env.VITE_WS_URL
@@ -24,6 +30,9 @@ function WorkSpace({tab}) {
         ws.onmessage = (event) =>{
             const data = JSON.parse(event.data);
             if(data.project){
+                if(data.message && !chatRef.current){
+                    setNotification(true)
+                }
                 setProject(data.project);
             }
         }
@@ -69,8 +78,15 @@ function WorkSpace({tab}) {
             </div>
         </div>
 
-        <button onClick={() => setShowChat(!showChat)} className='chat-button'><img src={chatIcon} alt="" /></button>
-        {showChat && <Chat project={project} socket={socket}/>}
+        <button
+            onClick={() => {
+                setShowChat(!showChat);
+                setNotification(0)
+            }}
+            className={notification ? 'chat-button animated-button' : 'chat-button'}>
+                <img src={chatIcon} alt="" />
+        </button>
+        {showChat && <Chat project={project} socket={socket} closeChat={() => setShowChat(false)}/>}
     </div>
   )
 }
