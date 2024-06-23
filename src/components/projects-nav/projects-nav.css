@@ -130,12 +130,12 @@
     .show-navBar{
         position: absolute;
         top: 50%;
-        right: -30px;
+        right: -25px;
         transform: translate(0, calc(-50% - 100px));
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 30px;
+        width: 25px;
         height: 150px;
         border: none;
         border-top-right-radius: 15px;

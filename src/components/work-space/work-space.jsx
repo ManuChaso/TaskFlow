@@ -2,12 +2,16 @@ import { useState, useEffect } from 'react';
 import {DndProvider, useDrag, useDrop} from 'react-dnd';
 import './work-space.css'
 
+import chatIcon from '../../assets/icons/chat.png';
+
 import Card from '../card/card';
 import ToolBar from '../tool-bar/tool-bar';
+import Chat from '../chat/chat';
 
 function WorkSpace({tab}) {
     const [project, setProject] = useState({name: '', cards: [], members: []});
-    const [socket, setSocket]= useState(null);
+    const [socket, setSocket] = useState(null);
+    const [showChat, setShowChat] = useState(false);
 
     useEffect(() => {
         const WS_URL = import.meta.env.VITE_WS_URL
@@ -64,6 +68,9 @@ function WorkSpace({tab}) {
                 <button onClick={createCard} className='add-card'>+</button>
             </div>
         </div>
+
+        <button onClick={() => setShowChat(!showChat)} className='chat-button'><img src={chatIcon} alt="" /></button>
+        {showChat && <Chat project={project} socket={socket}/>}
     </div>
   )
 }

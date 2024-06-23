@@ -46,6 +46,30 @@
     opacity: 1;
 }
 
+.chat-button{
+    position: absolute;
+    right: 50px;
+    bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--main-color);
+    transition: all 300ms;
+    cursor: pointer;
+}
+
+.chat-button:hover{
+    filter: brightness(1.15);
+}
+
+.chat-button img{
+    width: 35px;
+}
+
 @media (250px <= width <= 600px){
     .cards-container{
         display: flex;
