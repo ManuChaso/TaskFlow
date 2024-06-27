@@ -9,7 +9,7 @@
     display: flex;
 }
 .work-container{
-    flex: 5;
+    width: 83%;
 }
 
 .start-project{

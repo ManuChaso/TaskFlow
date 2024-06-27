@@ -15,7 +15,8 @@ export default async function exportProject(projectId){
                     background: card.background,
                     textColor: card.textColor,
                     tasks: card.tasks.map(task => ({
-                        name: task.name
+                        name: task.name,
+                        state: task.state
                     }))
                 }))
             }

@@ -3,8 +3,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 1;
-    max-width: 17%;
+    /* flex: 1;
+    max-width: 17%; */
+    width: 17%;
     height: calc(100vh - 50px);
     background-color: var(--background-highlight-color);
     transition: all 300ms;
@@ -15,8 +16,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 1;
-    max-width: 17%;
+    /* flex: 1;
+    max-width: 17%; */
+    width: 17%;
     height: calc(100vh - 50px);
     background-color: var(--background-highlight-color);
     transition: all 300ms;
