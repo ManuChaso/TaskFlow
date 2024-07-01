@@ -35,4 +35,8 @@ Este proyecto es una aplicación estilo Trello que permite a los usuarios crear 
   - WebSocket
   
 
+## Despliegue 
 
+La aplicación está desplegada en Render, una de las pocas plataformas de alojamiento que permite el uso de websockets en el plan gratuito. Debido a esto, la API entra en suspensión por inactividad, lo que provoca un mayor tiempo de espera al entrar en la página.
+
+Puedes acceder a la aplicación en el siguiente enlace: [TaskFlow](https://taskflow-ts0l.onrender.com/)
