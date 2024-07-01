@@ -9,7 +9,7 @@
     display: flex;
 }
 .work-container{
-    width: 100%;
+    width: 83%;
 }
 
 .start-project{
@@ -29,4 +29,10 @@
     font-size: 20px;
     color: white;
     filter: brightness(0.8);
+}
+
+@media (250px <= width <= 1000px){
+    .work-container{
+        width: 100%;
+    }
 }
