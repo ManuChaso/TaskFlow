@@ -44,7 +44,7 @@ export default function Task({task, index, socket, cardId, moveTask}){
     });
   
     const [, drop] = useDrop({
-      accept: ['TASK', 'CARD'],
+      accept: 'TASK',
       hover: (draggedItem) => {
         console.log('Task id', task._id)
         if (draggedItem.index !== index || draggedItem.cardId !== cardId) {

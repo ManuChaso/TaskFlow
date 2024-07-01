@@ -117,7 +117,10 @@ function Card({cardInfo, socket, index, moveCard}) {
   });
 
   return (
-    <div ref={(node) => drag(drop(node))} className='card' onContextMenu={(e) =>
+    <div ref={(node) => {
+      drag(drop(node))
+      dropTask(node)
+    }} className='card' onContextMenu={(e) =>
       contextMenu({
         e: e,
         options: [
@@ -138,7 +141,7 @@ function Card({cardInfo, socket, index, moveCard}) {
         :
         <h3 className='card-title' onClick={() => setEditing(true)} style={{background: backgroundColor, color: textColor}}>{cardInfo.name}</h3>
       }
-        <ul className='task-container' ref={dropTask}>
+        <ul className='task-container'>
           {card?.tasks.map((task, index) => 
             <Task key={index} task={task} socket={socket} cardId={cardInfo._id} index={index} moveTask={moveTask}/>
           )}
